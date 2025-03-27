@@ -36,6 +36,7 @@ jobs:
       - name: Package release helm charts
         run: make package-helm
       - run: mkdir -p ./build/artifacts/ && mv -v ./dist/artifacts/ ./build/
+      - run: ls -a ./build/artifacts/
       - uses: goreleaser/goreleaser-action@90a3faa9d0182683851fbfa97ca1a2cb983bfca3 # v6
         with:
           distribution: goreleaser
