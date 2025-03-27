@@ -45,6 +45,10 @@ archives:
       builds:
         - pushprox-proxy
       name_template: '{{ .Binary }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}_{{ .Mips }}{{ end }}'
+release:
+  prerelease: auto
+  extra_files:
+    - glob : ./build/artifacts/*.tgz
 checksum:
   name_template: 'checksums.txt'
 snapshot:
