@@ -7,7 +7,7 @@ on:
 
 env:
   PUBLIC_REGISTRY: docker.io
-  PUBLIC_REPO: rancher
+  PUBLIC_REPO: diogoasouza
 
 jobs:
   ci:
@@ -52,12 +52,12 @@ jobs:
       contents : read
       id-token: write
     steps:
-      - name : "Read Secrets"
-        uses : rancher-eio/read-vault-secrets@main
-        with:
-          secrets: |
-            secret/data/github/repo/${{ github.repository }}/dockerhub/rancher/credentials username | DOCKER_USERNAME ;
-            secret/data/github/repo/${{ github.repository }}/dockerhub/rancher/credentials password | DOCKER_PASSWORD
+#      - name : "Read Secrets"
+#        uses : rancher-eio/read-vault-secrets@main
+#        with:
+#          secrets: |
+#            secret/data/github/repo/${{ github.repository }}/dockerhub/rancher/credentials username | DOCKER_USERNAME ;
+#            secret/data/github/repo/${{ github.repository }}/dockerhub/rancher/credentials password | DOCKER_PASSWORD
       - name : Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name : Setup go
@@ -72,7 +72,7 @@ jobs:
 
           public-registry: ${{ env.PUBLIC_REGISTRY }}
           public-repo: ${{ env.PUBLIC_REPO }}
-          public-username: ${{ env.DOCKER_USERNAME || vars.DOCKER_USERNAME || github.repository_owner }}
-          public-password: ${{ env.DOCKER_PASSWORD || secrets.DOCKER_PASSWORD }}
+          public-username: ${{ vars.DOCKER_USERNAME }}
+          public-password: ${{ secrets.DOCKER_PASSWORD }}
 
           push-to-prime: false
